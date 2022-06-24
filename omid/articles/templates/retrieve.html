@@ -1,0 +1,112 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <style>
+        .ctim{
+            margin-top: 80px;
+            margin-left: 400px;
+            align-items: center;
+            justify-content: center;
+            width: 500px; 
+        }
+        h1 , h2 ,h5 , p , img{
+            margin: 10px;
+            text-align: center;
+            justify-content: center;
+        }
+        form{
+            margin-top: 20px;
+            text-align: center;
+            justify-content: center;
+        }
+          /* Navbar */
+        .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #333;
+        color: #fff;
+        opacity: 0.8;
+        width: 100%;
+        height: 70px;
+        position: fixed;
+        top: 0px;
+        padding: 0 30px;
+        transition: 0.5s;
+        }
+        
+        .navbar.top {
+        background: transparent;
+        background-color: #333;
+        opacity: 0.8;
+        } 
+        
+        .navbar a {
+        color: #fff;
+        padding: 10px 20px;
+        margin: 0 5px;
+        }
+        
+        .navbar a:hover{
+        border-bottom: #28a745 2px solid;
+        }
+        .navbar ul {
+        display: flex;
+        }
+        
+        .navbar .logo {
+        font-weight: 400 ;
+        }
+
+
+    </style>
+    {%if article.image %}
+        <img src="{{article.image.url}}" class="ctim">
+    {% endif %}
+    <div class="navbar top" id="navbar">
+        <a href="http://127.0.0.1:8000/">
+        <h1 class="logo">
+        <span class="text-primary"><i class="fas fa-book-open"></i> Edge</span>Ledger
+        </h1>
+        </a>
+      <nav>
+        <ul>
+         <li><a href="Index.html">Home</a></li>
+         <li><a href="#gallery">Gallery</a></li>
+      </nav>
+    </div>
+    <h1>{{article.title}}</h1>
+    <p>{{article.description}}</p> 
+    <hr>
+    <h2>Another Pictures</h2>
+    <hr>
+    {% for gallery in article.gallery_set.all %}
+    <img src="{{gallery.image.url}}" style="width: 250px;">
+    {% endfor %}
+    <h2>SEND PICTURE</h2>
+    <div>
+        <form action="" method="POST" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <input type="file" name="image"  accept="image/*" required id ="id_image">
+        <input type="hidden" name="related_article" value="{{article.id}}">
+        <input type="hidden" name="related_user" value="1">
+        <input type="submit" value="submit" class="btn btn-primary">
+        </form>
+    </div>
+    
+    <hr>
+    {% for comment in article.comment_set.all %}
+    <h5>{{comment.related_user.first_name}} {{comment.related_user.last_name}}</h5>
+    <p>{{comment.content}}</p>
+    <hr>
+    
+    {% endfor %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="related_article" value="{{article.id}}">
+        <textarea name="content" cols="30" rows="10" class="form-control mb-4" placeholder="Enter your coment..." ></textarea>
+        <input type="hidden" name="related_user" value="1">
+        <input type="submit" value="submit" class="btn btn-primary">
+    </form>
+
+{% endblock content %}

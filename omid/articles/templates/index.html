@@ -1,0 +1,365 @@
+{% extends 'layout.html' %}
+
+{%block title%}
+omid Project
+{% endblock  %}
+
+
+
+{%block content%}
+
+
+<div class="header">
+    <header class="hero">
+        <div class="navbar top" id="navbar">
+            <a href="http://127.0.0.1:8000/">
+            <h1 class="logo">
+            <span class="text-primary"><i class="fas fa-book-open"></i> Edge</span>Ledger
+            </h1>
+            </a>
+          <nav>
+            <ul>
+             <li><a href="http://127.0.0.1:8000/">Home</a></li>
+             <li><a href="#gallery">Gallery</a></li>
+          </nav>
+        </div>
+        
+        <div class="content">
+          <h1>The Gallery Page</h1>
+          <p>This site is gallery site like Pintres</p>
+          <a href="#gallery" class="btn"><i class="fas fa-chevron-right"></i>Select to Gallery</a>
+        </div>
+      </header>
+    
+</div>
+
+<hr>
+
+<div>
+    <form action="" method="POST" enctype="multipart/form-data" >
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="submit" class="btn btn-primary">
+    </form>
+</div>
+
+<div>
+    <header class="section-header">
+    <h4>This is what we do</h4>
+    <h2>PICTURE YOU CAN SEE</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, sed.</p>
+    </header>
+</div>
+
+<hr>            
+
+<section id="gallery" class="cases flex-grid section-padding">
+    <div class="row" style="width: fix;">
+        {% for article in articles %}
+        <div class="column" >
+            {% if article.image %}
+                <h2>{{article.title}}</h2></a>
+                <a href="{% url 'Retrieve' id=article.id %}" data-lightbox="cases" data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, sed.">
+
+                    <img src="{{article.image.url}}" style="width: 300px;">
+
+                {% endif %}    
+            
+        </div>
+        {% endfor  %}   
+    </div>
+    </section>
+
+
+
+<style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
+    
+    
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #fff;
+            color: #333;
+            line-height: 1.6;
+        }
+    
+        ul {
+            list-style: none;
+        }
+    
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+    
+        h1,h2 {
+            font-weight: 300;
+            line-height: 1.2;
+        }
+    
+        p {
+            margin: 10px 0;
+        }
+    
+        img{
+            width: 100%;
+        }
+    
+            /* Navbar */
+            .row {
+                width: 50;
+            }
+            .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #333;
+            color: #fff;
+            opacity: 0.8;
+            width: 100%;
+            height: 70px;
+            position: fixed;
+            top: 0px;
+            padding: 0 30px;
+            transition: 0.5s;
+            }
+            
+            .navbar.top {
+            background: transparent;
+            background-color: #333;
+            opacity: 0.8;
+            } 
+            
+            .navbar a {
+            color: #fff;
+            padding: 10px 20px;
+            margin: 0 5px;
+            }
+            
+            .navbar a:hover{
+            border-bottom: #28a745 2px solid;
+            }
+            .navbar ul {
+            display: flex;
+            }
+            
+            .navbar .logo {
+            font-weight: 400 ;
+            }
+    
+    
+                
+            /* Header */
+            .hero {
+            background: url(https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/apollo_11_flag_on_the_moon_w_aldrin_as11-40-5874.jpg) no-repeat center center/cover;
+            height: 100vh;
+            position: relative;
+            color: #fff;
+            }
+            
+            .hero .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100%;
+            padding: 0 20px;
+            }
+            
+            .hero .content h1 {
+            font-size: 55px;
+            }
+            
+            .hero .content p {
+            font-size: 23px;
+            max-width: 600px;
+            margin: 20px 0 30px;
+            }
+            
+            .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgb(0,0,0,0.6);
+            }
+            
+            .hero * {
+            z-index: 10;
+            }
+            
+            .hero.blog {
+            background: url('../images/home/blog.jpg') no-repeat center center/cover;
+            height: 30vh;
+            }
+    
+            /* Icons */
+            .icons{
+            padding: 30px;
+            }
+            
+            .icons h3{
+            font-weight: bold;
+            margin-bottom: 15px;
+            }
+            
+            .icons i {
+            background-color: #28a745;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            }
+            /* Cases */
+            
+            .cases img:hover {
+            opacity: 0.7;
+            }
+            /* text color */
+        .text-primary{
+            color: #28a745;
+        }
+    
+        .text-secondary {
+            color: #0284d0;
+        }
+    
+        /* Button */
+        .btn {
+            cursor: pointer;
+            display: inline-block;
+            padding: 10px 30px;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+        }
+    
+        .btn:hover{
+            opacity: 0.9;
+        }
+    
+        .btn-primary, .bg-primary{
+            background: #28a745;
+            color: #fff;
+        }
+        .btn-secondary, .bg-secondary {
+            background: #0284d0;
+            color: #fff;
+        }
+        .btn-dark, .bg-dark {
+            background: #333;
+            color: #fff;
+        }
+        .btn-light, .bg-light{
+            background: #f4f4f4;
+            color: #333;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #fff ;
+        }
+    
+        /* Flex items */
+        .flex-items {
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            height: 100%;
+        }
+    
+        .flex-items{
+            padding: 20px;
+        }
+        /* Flex Column */
+        .flex-columns.flex-reverse .row {
+            flex-direction: row-reverse;
+        }
+    
+        .flex-columns .row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+    
+        .flex-columns .column {
+            display: flex;
+            flex-direction: column;
+            flex-basis: 100%;
+            flex: 1;
+        }
+    
+        .flex-columns .column .column-1,
+        .flex-columns .column .column-2{
+            height: 100%;
+        }
+    
+        .flex-columns img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    
+        .flex-columns .column-2 {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 30px;
+        }
+    
+        .flex-columns h2 {
+            font-size: 40px;
+            font-weight: 100;
+        }
+    
+        .flex-columns h4{
+            margin-bottom: 10px;
+        }
+    
+        .flex-columns p {
+            margin: 20px 0;
+        }
+    
+        /* Section header */
+        .section-header{
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+    
+        .section-header h2 {
+            font-size: 40px;
+            margin: 20px 0;
+        }
+    
+        .section-padding {
+            padding: 20px 20px 40px;
+        }
+    
+        /* Flex Grid */
+        .flex-grid .row{
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 4px;
+        }
+    
+        .flex-grid .column{
+            flex: 25% ;
+            /* padding: 0 4px; */
+        }
+        .flex-grid .row>* {
+            width: 0;
+            padding-left: 0;
+            padding-right: 0;
+        }
+    </style>
+{% endblock  %}
